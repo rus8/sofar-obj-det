@@ -6,10 +6,14 @@
 
 ### Plan draft
 
-1. Find datasets and download them
-2. Evaluate datasets, select feasible
-3. Prepare dataset for the problem combining available data
-4. Understand what is achievable with our dataset
-5. Choose metrics of performance
-6. Find methods and approaches for detection, and evaluate them
+1. Find datasets
+2. Evaluate datasets, select feasible one
+3. Choose detection algorithm (DNN architecture)
+4. Prepare labels according to chosen algorithm
+5. Evaluate the perfomance of the algorithm
+6. Integrate algorithm in ROS
+7. Apply algorithm to real robot (Husqvarna)
 
+### Possible enhancements
+
+* Combine several datasets in one
