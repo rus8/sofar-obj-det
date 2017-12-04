@@ -1,8 +1,8 @@
 # SofAR Obstacle detection project 
 
 ### Team
-Luigi Secondo
-Ruslan Aminev
+* Luigi Secondo
+* Ruslan Aminev
 
 ### Plan draft
 
