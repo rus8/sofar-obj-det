@@ -25,7 +25,7 @@ of persons could present. Labels should determine position of the person on the 
 of the bounding box (or should be convertible to bounding box).
 
 Datasets with pedestrians:
-1. KITTY
+1. KITTI
 
     Among lot of various road environment datasets there are two which are useful    for our problem:
     * [Dataset for detection](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=2d) 

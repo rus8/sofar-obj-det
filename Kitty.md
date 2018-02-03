@@ -16,7 +16,9 @@ It provides several pictures with corresponding labels files to train the networ
 | 1 | alpha | Observation angle of object, ranging [-pi..pi] |
 | 4 | bbox | 2D bounding box of object in the image (0-based index): contains left, top, right, bottom pixel coordinates | 
 | 3 | dimentions | 3D object dimensions: height, width, length (in meters) |
-| 3| location | 3D object location x,y,z in camera coordinates (in meters) |
+| 3 | location | 3D object location x,y,z in camera coordinates (in meters) |
 | 1 | rotation_y | Rotation ry around Y-axis in camera coordinates [-pi..pi] |
 | 1 | score | Only for results: Float, indicating confidence in detection, needed for p/r curves, higher is better. |
-        
+
+
+
