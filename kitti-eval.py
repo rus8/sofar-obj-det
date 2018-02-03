@@ -34,19 +34,29 @@ if __name__ == "__main__":
         # count number of lines in the file
         lines = file_len(current_file)
         fo = open(current_file, "r")
+        bboxes = []
         for x in range(lines):
             """Check pedestrian values
             
-            I split the line every time I find a space and the analyze the values
+            I split the line every time I find a space and then analyze the values
             """
             line = fo.readline()
             words = line.split(" ")
-            if words[0]== "Pedestrian"
-                coordinates[0] =
-           # print("Read Line: ", line)
+            if words[0] == "Pedestrian":
+                coordinates = []
+                coordinates.append(float(words[4]))
+                coordinates.append(float(words[5]))
+                coordinates.append(float(words[6]))
+                coordinates.append(float(words[7]))
+                bboxes.append(coordinates)
 
-        # Close opend file
+        # Close opened file
         fo.close()
+
+        # Add things to the dictionary
+        path_words = current_file.split("/")
+        picture_code = path_words[-1].split(".")
+        data[picture_code[0] + '.png'] = bboxes
 
     # write results in json file
     json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/results.json', 'w'))
