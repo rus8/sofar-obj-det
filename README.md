@@ -29,7 +29,7 @@ Datasets with pedestrians:
 
     Among lot of various road environment datasets there are two which are useful    for our problem:
     * [Dataset for detection](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=2d) 
-with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc).
+    with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc).
     * [Dataset for object tracking](http://www.cvlibs.net/datasets/kitti/eval_tracking.php) with the same 8 classes. 
 
         
@@ -64,4 +64,12 @@ with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc
     [Dataset](http://robotcar-dataset.robots.ox.ac.uk/) was collected in over 1000 km of recordered driving in all weather conditions. There are almost 20 million images of the same road from 6 cameras.
 
 
-### 2.
+### 2. Evaluation of datasets
+With a first "human" evaluation we concluded that:
+1. KITTI is a useful dataset, rich of detected pictures with well-made labels
+2. Cityscapes it is a segmentation dataset and it'll require a lot of work to convert segmentation labels to bounding boxes for detection
+3. Daimler has only black & white pictures so we have decided to drop it
+4. Caltech: Ruslan is working on it
+5. MOT-17 TO DO
+6. KAIST TO DO
+7. Oxford is too big to be evaluated with our personal machines so we have decided to drop it
