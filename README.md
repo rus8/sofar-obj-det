@@ -67,7 +67,7 @@ Datasets with pedestrians:
 ### 2. Evaluation of datasets
 With a first "human" evaluation we concluded that:
 1. KITTI is a useful dataset, rich of detected pictures with well-made labels
-2. Cityscapes it is a segmentation dataset and it'll require a lot of work to convert segmentation labels to bounding boxes for detection
+2. Cityscapes is a segmentation dataset and it'll require a lot of work to convert segmentation labels to bounding boxes for detection, so we have decided to drop it
 3. Daimler has only black & white pictures so we have decided to drop it
 4. Caltech: Ruslan is working on it
 5. MOT-17 TO DO
