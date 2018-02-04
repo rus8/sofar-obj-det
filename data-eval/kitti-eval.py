@@ -9,7 +9,8 @@ Python dictionary / json format:
 """
 import glob
 import json
-
+# Change this with the path of labels folder
+path = "/Users/luigi/Desktop/label_2/"
 
 def file_len(fo):
     """ Number of lines per file
@@ -29,12 +30,12 @@ if __name__ == "__main__":
 
     data = dict()
     pedestrians = 0
-    pedPictures = 0
-    totPictures = 0
+    ped_pictures = 0
+    tot_pictures = 0
 
-    for current_file in glob.glob('/Users/luigi/Desktop/label_2/*.txt'):
+    for current_file in glob.glob(path + '*.txt'):
 
-        totPictures += 1
+        tot_pictures += 1
         # count number of lines in the file
         lines = file_len(current_file)
         fo = open(current_file, "r")
@@ -48,8 +49,6 @@ if __name__ == "__main__":
             words = line.split(" ")
             if words[0] == "Pedestrian":
                 pedestrians += 1
-                if not bboxes:
-                    pedPictures += 1
                 coordinates = []
                 coordinates.append(float(words[4]))
                 coordinates.append(float(words[5]))
@@ -64,13 +63,15 @@ if __name__ == "__main__":
         path_words = current_file.split("/")
         picture_code = path_words[-1].split(".")
         data[picture_code[0] + '.png'] = bboxes
+        if bboxes:
+            ped_pictures += 1
 
     # write results in json file
     json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/kitti-label.json', 'w'))
 
-    print("\nTotal number of pictures: ", totPictures)
+    print("\nTotal number of pictures: ", tot_pictures)
     print("Total number of pedestrians: ", pedestrians)
-    print("Total number of pictures with pedestrians: ", pedPictures)
-    print("Total number of pictures without pedestrians: ", totPictures-pedPictures)
-    print("Average of pedestrians per picture with pedestrians: ", pedestrians/pedPictures)
-    print("Average of pedestrians per picture in general: ", pedestrians / totPictures)
+    print("Total number of pictures with pedestrians: ", ped_pictures)
+    print("Total number of pictures without pedestrians: ", tot_pictures - ped_pictures)
+    print("Average of pedestrians per picture with pedestrians: ", pedestrians / ped_pictures)
+    print("Average of pedestrians per picture in general: ", pedestrians / tot_pictures)
