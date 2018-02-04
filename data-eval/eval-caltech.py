@@ -16,7 +16,9 @@ from collections import defaultdict
 
 data_path = '/home/rr/Desktop/Caltech-dataset'
 
-all_obj = 0
+pedestrians = 0
+tot_pictures = 0
+ped_pictures = 0
 data = defaultdict(dict)
 labels = dict()
 for dname in sorted(glob.glob(data_path + '/annotations/set*')):
@@ -46,6 +48,7 @@ for dname in sorted(glob.glob(data_path + '/annotations/set*')):
 
         n_obj = 0
         for frame_id, obj in enumerate(objLists):
+            tot_pictures += 1
             bboxes = []
             if len(obj) > 0:
                 for id, pos, occl, lock, posv in zip(
@@ -59,20 +62,35 @@ for dname in sorted(glob.glob(data_path + '/annotations/set*')):
                     occl = int(occl[0][0])
                     lock = int(lock[0][0])
                     posv = posv[0].tolist()
-                    datum = dict(zip(keys, [id, pos, occl, lock, posv]))
-                    datum['lbl'] = str(objLbl[datum['id']])
-                    datum['str'] = int(objStr[datum['id']])
-                    datum['end'] = int(objEnd[datum['id']])
-                    datum['hide'] = int(objHide[datum['id']])
-                    if datum['hide'] > 0:
-                        print(set_name, video_name, frame_id, id, " : ", occl, datum['hide'])
-                    datum['init'] = int(objInit[datum['id']])
-                    data[set_name][video_name][
-                        'frames'][frame_id].append(datum)
-                    n_obj += 1
-
+                    # datum = dict(zip(keys, [id, pos, occl, lock, posv]))
+                    # datum['lbl'] = str(objLbl[datum['id']])
+                    # datum['str'] = int(objStr[datum['id']])
+                    # datum['end'] = int(objEnd[datum['id']])
+                    # datum['hide'] = int(objHide[datum['id']])
+                    # if datum['hide'] > 0:
+                    #     print(set_name, video_name, frame_id, id, " : ", occl, datum['hide'])
+                    # datum['init'] = int(objInit[datum['id']])
+                    # data[set_name][video_name][
+                    #     'frames'][frame_id].append(datum)
+                    label = str(objLbl[id])
+                    if label == 'person':
+                        coordinates = pos
+                        coordinates[2] += coordinates[0]
+                        coordinates[3] += coordinates[1]
+                        bboxes.append(coordinates)
+                        n_obj += 1
+            if bboxes:
+                ped_pictures += 1
+            labels[set_name+'/'+video_name+'.seq/'+str(frame_id)+'.jpg'] = bboxes
         print(dname, anno_fn, n_obj)
-        all_obj += n_obj
+        pedestrians += n_obj
 
-print('Number of objects:', all_obj)
-# json.dump(data, open(data_path + '/annotations.json', 'w'))
+print('Number of objects:', pedestrians)
+json.dump(labels, open(data_path + '/caltech-labels.json', 'w'))
+
+print("\nTotal number of pictures: ", tot_pictures)
+print("Total number of pedestrians: ", pedestrians)
+print("Total number of pictures with pedestrians: ", ped_pictures)
+print("Total number of pictures without pedestrians: ", tot_pictures - ped_pictures)
+print("Average of pedestrians per picture with pedestrians: ", pedestrians/ped_pictures)
+print("Average of pedestrians per picture in general: ", pedestrians / tot_pictures)
