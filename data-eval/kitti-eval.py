@@ -4,7 +4,7 @@ This script analyses labels, selects proper bounding boxes,
 and saves them in special format using json.
 
 Python dictionary / json format:
-{"file1_path": [[bb_1_x bb_1_y bb_1_w bb_1_h] ... [bb_i_x bb_i_y bb_i_w bb_i_h]],
+{"file1_path": [[bb_1_tl_x bb_1_tl_y bb_1_br_x bb_1_br_y] ... [bb_i_tl_x bb_i_tl_y bb_i_br_x bb_i_br_y]],
  "file2_path": ... }
 """
 import glob
