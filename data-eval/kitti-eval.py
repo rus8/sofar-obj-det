@@ -66,7 +66,8 @@ if __name__ == "__main__":
         data[picture_code[0] + '.png'] = bboxes
 
     # write results in json file
-    json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/results.json', 'w'))
+    json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/kitti-label.json', 'w'))
+
     print("\nTotal number of pictures: ", totPictures)
     print("Total number of pedestrians: ", pedestrians)
     print("Total number of pictures with pedestrians: ", pedPictures)
