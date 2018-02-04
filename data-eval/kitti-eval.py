@@ -24,25 +24,32 @@ def file_len(fo):
 if __name__ == "__main__":
     """Label files evaluation
     The main purpose of this script is to understand how many pictures contain pedestrians and compute an average of pedestrians per picture.
-    
+
     """
 
     data = dict()
+    pedestrians = 0
+    pedPictures = 0
+    totPictures = 0
 
     for current_file in glob.glob('/Users/luigi/Desktop/label_2/*.txt'):
 
+        totPictures += 1
         # count number of lines in the file
         lines = file_len(current_file)
         fo = open(current_file, "r")
         bboxes = []
         for x in range(lines):
             """Check pedestrian values
-            
+
             I split the line every time I find a space and then analyze the values
             """
             line = fo.readline()
             words = line.split(" ")
             if words[0] == "Pedestrian":
+                pedestrians += 1
+                if not bboxes:
+                    pedPictures += 1
                 coordinates = []
                 coordinates.append(float(words[4]))
                 coordinates.append(float(words[5]))
@@ -60,3 +67,9 @@ if __name__ == "__main__":
 
     # write results in json file
     json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/results.json', 'w'))
+    print("\nTotal number of pictures: ", totPictures)
+    print("Total number of pedestrians: ", pedestrians)
+    print("Total number of pictures with pedestrians: ", pedPictures)
+    print("Total number of pictures without pedestrians: ", totPictures-pedPictures)
+    print("Average of pedestrians per picture with pedestrians: ", pedestrians/pedPictures)
+    print("Average of pedestrians per picture in general: ", pedestrians / totPictures)
