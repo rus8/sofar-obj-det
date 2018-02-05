@@ -70,6 +70,6 @@ With a first "human" evaluation we concluded that:
 2. Cityscapes is a segmentation dataset and it'll require a lot of work to convert segmentation labels to bounding boxes for detection, so we have decided to drop it
 3. Daimler has only black & white pictures so we have decided to drop it
 4. Caltech: Ruslan is working on it
-5. MOT-17 TO DO
+5. MOT-17 The main interest of the dataset is to track multiple people tracking algorithm.
 6. KAIST TO DO
 7. Oxford is too big to be evaluated with our personal machines so we have decided to drop it
