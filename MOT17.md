@@ -9,8 +9,8 @@ Detection and annotation files are simple comma-separated value (CSV) files. Eac
 |:------:|:-----:|:----------|
 | 1 | Frame number | Indicate at which frame the object is present |
 | 2 | Identity number | Each pedestrian trajectory is identified by a unique ID (−1 for detections) |
-| 3 | Bounding box left | Coordinate of the top-left corner of the pedestrian bounding box |
-| 4 | Bounding box top | Coordinate of the top-left corner of the pedestrian bounding box |
+| 3 | Bounding box left | Coordinate x of the top-left corner of the pedestrian bounding box |
+| 4 | Bounding box top | Coordinate y of the top-left corner of the pedestrian bounding box |
 | 5 | Bounding box width | Width in pixels of the pedestrian bounding box | 
 | 6 | Bounding box height | Height in pixels of the pedestrian bounding box |
 | 7 | Confidence score | It acts as a flag whether the entry is to be considered (1) or ignored (0). |
