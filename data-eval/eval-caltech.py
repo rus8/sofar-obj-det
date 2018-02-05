@@ -4,7 +4,7 @@ This script analyses labels, selects proper bounding boxes,
 and saves them in special format using json.
 
 Python dictionary / json format:
-{"file1_path": [[bb_1_x bb_1_y bb_1_w bb_1_h] ... [bb_i_x bb_i_y bb_i_w bb_i_h]],
+{"file1_path": [[bb_1_tl_x bb_1_tl_y bb_1_br_x bb_1_br_y] ... [bb_i_tl_x bb_i_tl_y bb_i_br_x bb_i_br_y]],
  "file2_path": ... }
 """
 
@@ -47,9 +47,11 @@ for dname in sorted(glob.glob(data_path + '/annotations/set*')):
         data[set_name][video_name]['frames'] = defaultdict(list)
 
         n_obj = 0
+
         for frame_id, obj in enumerate(objLists):
-            tot_pictures += 1
-            bboxes = []
+            bboxes = []  # List for bounding boxes of persons
+            pic_obj = 0  # Number of objects in image
+            bad_pic = False  # Flag for pictures which contains "people" and "person?" classes
             if len(obj) > 0:
                 for id, pos, occl, lock, posv in zip(
                         obj['id'][0], obj['pos'][0], obj['occl'][0],
@@ -73,15 +75,25 @@ for dname in sorted(glob.glob(data_path + '/annotations/set*')):
                     # data[set_name][video_name][
                     #     'frames'][frame_id].append(datum)
                     label = str(objLbl[id])
-                    if label == 'person':
+
+                    # Consider only pictures with persons presented separately or without people at all
+                    if label == 'people' or label == 'person?':
+                        bad_pic = True
+                        bboxes = []
+                        break
+                    elif label == 'person':
                         coordinates = pos
                         coordinates[2] += coordinates[0]
                         coordinates[3] += coordinates[1]
                         bboxes.append(coordinates)
-                        n_obj += 1
-            if bboxes:
-                ped_pictures += 1
-            labels[set_name+'/'+video_name+'.seq/'+str(frame_id)+'.jpg'] = bboxes
+                        pic_obj += 1
+
+            if not bad_pic:
+                tot_pictures += 1
+                if bboxes:
+                    ped_pictures += 1
+                n_obj += pic_obj
+                labels[set_name+'/'+video_name+'.seq/'+str(frame_id)+'.jpg'] = bboxes
         print(dname, anno_fn, n_obj)
         pedestrians += n_obj
 
