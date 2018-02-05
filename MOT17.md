@@ -19,17 +19,17 @@ Detection and annotation files are simple comma-separated value (CSV) files. Eac
 
 Classes of detected objects and their corresponding values:
 
-| Class | ID |
+| ID | Class |
 |:-----:|:------:|
-| Pedestrian | 1 |
-| Person on vehicle| 2 |
-| Car | 3 |
-| Bicycle | 4 |
-| Motorcycle | 5 |
-| Non motorized vehicle | 6 |
-| Static person | 7 |
-| Distractor | 8 |
-| Occluder | 9 |
-| Occluder on the ground | 10 |
-| Occluder full | 11 |
-| Reflection | 12 |
+| 1 | Pedestrian |
+| 2 | Person on vehicle|
+| 3 | Car |
+| 4 | Bicycle |
+| 5 | Motorcycle |
+| 6 | Non motorized vehicle |
+| 7 | Static person |
+| 8 | Distractor |
+| 9 | Occluder |
+| 10 | Occluder on the ground |
+| 11 | Occluder full |
+| 12 | Reflection |
