@@ -34,3 +34,7 @@ Classes of detected objects and their corresponding values:
 | 10 | Occluder on the ground |
 | 11 | Occluder full |
 | 12 | Reflection |
+
+If a person is cropped by the image border, the box is estimated beyond the original frame to represent the entire person and to estimate the level of cropping.
+As you can see, the dataset also distinguishes people inside vehicles.
+For our purpose we decided to drop pictures with people inside vehicles to not create ambiguities in the neural network training and we cropped bounding boxes which were not completely included in the picture.

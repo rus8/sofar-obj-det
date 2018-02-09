@@ -28,6 +28,8 @@ def file_len(fo):
 if __name__ == "__main__":
     """Label files evaluation
     The main purpose of this script is to understand how many pictures contain pedestrians and compute an average of pedestrians per picture.
+    After that, the number of pedestrians per pictures and relative bounding boxes is stored in a json file, following the "standard" used for also
+    the other evaluation scripts.
 
     """
     gt = pd.read_csv(gt_path, header=None ).values
@@ -36,6 +38,16 @@ if __name__ == "__main__":
     data = dict()
     pedestrians = 0
     tot_pictures = 600
+
+    # First of all remove every picture with people inside vehicles
+    toDelete = []
     for row in gt_sorted:
-        print(row)
+        if row[7] == 2:
+            toDelete.append(row[0])
         break
+    for row in gt_sorted:
+        if row[0] in toDelete :
+            np.delete(gt_sorted, row, 0)
+        break
+
+    #for row in gt_sorted:
