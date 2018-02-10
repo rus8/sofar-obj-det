@@ -48,7 +48,7 @@ if __name__ == "__main__":
         break
     for row in gt:
         if row[0] in to_delete:
-            np.delete(gt, row, 0)
+            np.delete(gt, row, 0)  #TODO: change del func
         break
 
     for row in gt:
