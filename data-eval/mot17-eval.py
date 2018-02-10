@@ -47,7 +47,7 @@ if __name__ == "__main__":
             to_delete.append(row[0])
         break
     for row in gt:
-        if row[0] in to_delete :
+        if row[0] in to_delete:
             np.delete(gt, row, 0)
         break
 
@@ -61,15 +61,12 @@ if __name__ == "__main__":
             bbox.append(row[4])
             bbox.append(row[5])
             bboxes_list.append(bbox)
-            if (row[0] + '.jpg') not in data:
-                data[row[0]+'.jpg']: bboxes_list
+            pic_id = str(int(row[0]))
+            if pic_id + '.jpg' not in data:
+                data[pic_id+'.jpg'] = bboxes_list
                 ped_pictures += 1
-                break
             else:
-                data[row[0]+'jpg'].append(bboxes_list)
-                break
-            break
-        break
+                data[pic_id+'.jpg'].append(bboxes_list)
     tot_pictures = len(data)
 
     # write results in json file
