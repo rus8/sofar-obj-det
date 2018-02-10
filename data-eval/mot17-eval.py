@@ -33,21 +33,51 @@ if __name__ == "__main__":
 
     """
     gt = pd.read_csv(gt_path, header=None ).values
-    gt_sorted = np.sort(gt, axis=0)
+    #gt_sorted = np.sort(gt, axis=0, kind='mergesort')
 
     data = dict()
     pedestrians = 0
-    tot_pictures = 600
+    tot_pictures = 0
+    ped_pictures = 0
 
     # First of all remove every picture with people inside vehicles
-    toDelete = []
-    for row in gt_sorted:
+    to_delete = []
+    for row in gt:
         if row[7] == 2:
-            toDelete.append(row[0])
+            to_delete.append(row[0])
         break
-    for row in gt_sorted:
-        if row[0] in toDelete :
-            np.delete(gt_sorted, row, 0)
+    for row in gt:
+        if row[0] in to_delete :
+            np.delete(gt, row, 0)
         break
 
-    #for row in gt_sorted:
+    for row in gt:
+        if row[7] == 1 or row[7] == 7:
+            pedestrians += 1
+            bboxes_list = []
+            bbox = []
+            bbox.append(row[2])
+            bbox.append(row[3])
+            bbox.append(row[4])
+            bbox.append(row[5])
+            bboxes_list.append(bbox)
+            if (row[0] + '.jpg') not in data:
+                data[row[0]+'.jpg']: bboxes_list
+                ped_pictures += 1
+                break
+            else:
+                data[row[0]+'jpg'].append(bboxes_list)
+                break
+            break
+        break
+    tot_pictures = len(data)
+
+    # write results in json file
+    json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/mot17-label.json', 'w'))
+
+    print("\nTotal number of pictures: ", tot_pictures)
+    print("Total number of pedestrians: ", pedestrians)
+    print("Total number of pictures with pedestrians: ", ped_pictures)
+    print("Total number of pictures without pedestrians: ", tot_pictures - ped_pictures)
+    print("Average of pedestrians per picture with pedestrians: ", pedestrians / ped_pictures)
+    print("Average of pedestrians per picture in general: ", pedestrians / tot_pictures)
