@@ -91,6 +91,7 @@ Here is how it should work:
 * The received image is converted in numpy array
 
 Since we want to use images in conjunction with OpenCV, CvBridge is a ROS library that provides an interface between ROS
+To test if opencv supports input camera use the script `test-video-resource.py` (no need of ROS).
 
 ___
 
