@@ -63,7 +63,6 @@ Datasets with pedestrians:
 
     [Dataset](http://robotcar-dataset.robots.ox.ac.uk/) was collected in over 1000 km of recordered driving in all weather conditions. There are almost 20 million images of the same road from 6 cameras.
 
-
 ### 2. Evaluation of datasets
 With a first "human" evaluation we concluded that:
 1. KITTI is a useful dataset, rich of detected pictures with well-made labels
@@ -74,6 +73,8 @@ With a first "human" evaluation we concluded that:
 6. KAIST TO DO
 7. Oxford is too big to be evaluated with our personal machines so we have decided to drop it
 
+For a more detailed report for each evalued dataset check `Dataset reports` folder
+
 ### 6. Integrate algorithm in ROS
 In order to run the project in a physical robot we need to implement it in ROS. 
 Here is how it should work:
@@ -82,4 +83,10 @@ Here is how it should work:
 * Image subscriber waits image from the publisher
 * The received image is converted in numpy array
 
-We need "opencv" to gram pictures from cam and cv-bridge to convert images with python-ROS
+Since we want to use images in conjunction with OpenCV, CvBridge is a ROS library that provides an interface between ROS
+
+
+### Sources
+* Integration of project in ROS:\
+[Basic scripts in python](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29) \
+[CvBridge](http://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython)
