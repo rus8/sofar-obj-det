@@ -73,3 +73,13 @@ With a first "human" evaluation we concluded that:
 5. MOT-17 The main interest of the dataset is to track multiple people tracking algorithm.
 6. KAIST TO DO
 7. Oxford is too big to be evaluated with our personal machines so we have decided to drop it
+
+### 6. Integrate algorithm in ROS
+In order to run the project in a physical robot we need to implement it in ROS. 
+Here is how it should work:
+
+* Camera publisher publishes to ROS
+* Image subscriber waits image from the publisher
+* The received image is converted in numpy array
+
+We need "opencv" to gram pictures from cam and cv-bridge to convert images with python-ROS
