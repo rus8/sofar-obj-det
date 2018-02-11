@@ -1,8 +1,10 @@
 # SofAR Obstacle detection project 
 
 ### Team
-* Luigi Secondo
 * Ruslan Aminev
+* Luigi Secondo
+
+___
 
 ### Plan draft
 
@@ -18,6 +20,7 @@
 
 * Combine several datasets in one
 
+___
 
 ### 1. Find datasets
 Suitable dataset should contain images or image sequences of scenes, where different number
@@ -63,6 +66,8 @@ Datasets with pedestrians:
 
     [Dataset](http://robotcar-dataset.robots.ox.ac.uk/) was collected in over 1000 km of recordered driving in all weather conditions. There are almost 20 million images of the same road from 6 cameras.
 
+___
+
 ### 2. Evaluation of datasets
 With a first "human" evaluation we concluded that:
 1. KITTI is a useful dataset, rich of detected pictures with well-made labels
@@ -75,6 +80,8 @@ With a first "human" evaluation we concluded that:
 
 For a more detailed report for each evalued dataset check `Dataset reports` folder
 
+___
+
 ### 6. Integrate algorithm in ROS
 In order to run the project in a physical robot we need to implement it in ROS. 
 Here is how it should work:
@@ -85,6 +92,7 @@ Here is how it should work:
 
 Since we want to use images in conjunction with OpenCV, CvBridge is a ROS library that provides an interface between ROS
 
+___
 
 ### Sources
 * Integration of project in ROS:\
