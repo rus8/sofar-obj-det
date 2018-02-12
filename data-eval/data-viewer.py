@@ -10,7 +10,7 @@ import json
 import numpy as np
 import random
 
-#! BGR
+# Colors for bounding boxes (! BGR)
 color_codes = [
     (0, 0, 255),  # red
     (0, 255, 0),  # lime
@@ -23,20 +23,20 @@ color_codes = [
     (127, 255, 0)  # spring green
 ]
 
+# Paths to images folder and labels json file
 images_path = '/home/rr/Desktop/Caltech-dataset/images'
-
 labels_file = "/home/rr/Desktop/Caltech-dataset/caltech-labels.json"
 
+# Load labels in dictionary
 with open(labels_file, 'r') as fp:
     labels = json.load(fp)
 
+# Get list of image files (would be randomly ordered as taken from dict)
 frames = np.array(list(labels.keys()))
-# rand_frames_inds = np.random.choice(len(frames), nb_samples)
-for frame_file in frames: #[rand_frames_inds]:round
+
+for frame_file in frames:
     file_dir = os.path.join(images_path, frame_file)
     img = cv2.imread(file_dir)
-    # img = self.draw_data(frame_file)
-    # img = self.draw_data(img, self.det_gt[frame_file])
 
     for box in labels[frame_file]:
         color = random.choice(color_codes)
@@ -47,8 +47,12 @@ for frame_file in frames: #[rand_frames_inds]:round
         font = cv2.FONT_HERSHEY_PLAIN
         img = cv2.rectangle(img, (x1, y1), (x2, y2), color, thickness=2)
 
+    # Show resulting image
     cv2.imshow('Dataset sample', img)
+    # Wait for user input
     k = cv2.waitKey(0)
+    # Stop script if "ESC" button is pressed
     if k == 27:
-        cv2.destroyWindow('Dataset sample')
         break
+
+cv2.destroyWindow('Dataset sample')
