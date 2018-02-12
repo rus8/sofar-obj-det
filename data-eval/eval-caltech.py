@@ -14,16 +14,18 @@ import json
 from scipy.io import loadmat
 from collections import defaultdict
 
+# Path to dataset folder which should contain "annotations" folder
 data_path = '/home/rr/Desktop/Caltech-dataset'
 
 pedestrians = 0
 tot_pictures = 0
 ped_pictures = 0
 data = defaultdict(dict)
-labels = dict()
+labels = dict()  # Stores data to be saved as json file
 for dname in sorted(glob.glob(data_path + '/annotations/set*')):
     set_name = os.path.basename(dname)
     data[set_name] = defaultdict(dict)
+    # For each video in the set parse annotation file
     for anno_fn in sorted(glob.glob('{}/*.vbb'.format(dname))):
         vbb = loadmat(anno_fn)
         nFrame = int(vbb['A'][0][0][0][0][0])
@@ -48,6 +50,7 @@ for dname in sorted(glob.glob(data_path + '/annotations/set*')):
 
         n_obj = 0
 
+        # For each frame in video add bboxes to the label's dictionary
         for frame_id, obj in enumerate(objLists):
             bboxes = []  # List for bounding boxes of persons
             pic_obj = 0  # Number of objects in image
@@ -64,16 +67,6 @@ for dname in sorted(glob.glob(data_path + '/annotations/set*')):
                     occl = int(occl[0][0])
                     lock = int(lock[0][0])
                     posv = posv[0].tolist()
-                    # datum = dict(zip(keys, [id, pos, occl, lock, posv]))
-                    # datum['lbl'] = str(objLbl[datum['id']])
-                    # datum['str'] = int(objStr[datum['id']])
-                    # datum['end'] = int(objEnd[datum['id']])
-                    # datum['hide'] = int(objHide[datum['id']])
-                    # if datum['hide'] > 0:
-                    #     print(set_name, video_name, frame_id, id, " : ", occl, datum['hide'])
-                    # datum['init'] = int(objInit[datum['id']])
-                    # data[set_name][video_name][
-                    #     'frames'][frame_id].append(datum)
                     label = str(objLbl[id])
 
                     # Consider only pictures with persons presented separately or without people at all
