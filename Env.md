@@ -33,12 +33,15 @@ Install Cython for darkflow:\
 Install TensorFlow for darkflow:\
 `(venv) $ pip install tensorflow-gpu==1.0`
 
-## Darkflow
-Implementation of Darknet for YOLO in TensorFlow: 
-https://github.com/thtrieu/darkflow
+## [Darkflow](https://github.com/thtrieu/darkflow)
+Implementation of [Darknet](https://pjreddie.com/darknet/) 
+for YOLO [[1](https://arxiv.org/abs/1506.02640)],
+ [[2](https://arxiv.org/abs/1612.08242)] in TensorFlow. 
+
 
 1) Clone it from GitHub:\
- `(venv) git clone https://github.com/thtrieu/darkflow.git`
- 
-2) Setup it locally using your new venv:\
- `(venv) python setup.py build_ext --inplace`
+ `(venv) $ git clone https://github.com/thtrieu/darkflow.git`
+2) Enter darkflow directory:\
+ `(venv) $ cd darkflow`
+3) Setup it locally using your new venv:\
+ `(venv) $ pip install .`
