@@ -3,7 +3,9 @@ The main interest of the authors of the dataset is to track moving objects in vi
 They provide a set of 600 pictures with a labels file.
 A detailed description of dataset and relative benchmarks can be found [here](https://arxiv.org/pdf/1603.00831.pdf).
 
-![alt text](MOT17.jpg)
+
+![](MOT17.jpg)
+
 ## Labels description:
 Detection and annotation files are simple comma-separated value (CSV) files. Each line represents one object instance and contains 9 values as shown in the following table.
 
