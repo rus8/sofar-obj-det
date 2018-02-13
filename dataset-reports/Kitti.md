@@ -6,6 +6,7 @@ with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc
 
 It provides several pictures with corresponding labels files to train the network and many other pictures to test the training (see folder "Detection").
 
+![alt text](kitti.png)
 ## Labels description:
 
 | Values | Name | Description |
