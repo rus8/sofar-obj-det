@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 # Change this with the path of labels folder
-gt_path = "/Users/luigi/Desktop/MOD17/MOT17Det/train/MOT17-02/gt/gt.txt"
+gt_path = "/Users/luigi/Desktop/MOD17/MOT17Det/train/MOT17-09/gt/gt.txt"
 
 def file_len(fo):
     """ Number of lines per file
@@ -43,30 +43,29 @@ if __name__ == "__main__":
     # First of all remove every picture with people inside vehicles
     to_delete = []
     for row in gt:
-        if row[7] == 2:
+        if row[7] == 2 and row[6] > 0:
             to_delete.append(row[0])
-        break
     for row in gt:
         if row[0] in to_delete:
-            np.delete(gt, row, 0)  #TODO: change del func
-        break
+            gt = np.delete(gt, (row), axis=0)
 
     for row in gt:
         if row[7] == 1 or row[7] == 7:
-            pedestrians += 1
-            bboxes_list = []
-            bbox = []
-            bbox.append(row[2])
-            bbox.append(row[3])
-            bbox.append(row[4])
-            bbox.append(row[5])
-            bboxes_list.append(bbox)
-            pic_id = str(int(row[0]))
-            if pic_id + '.jpg' not in data:
-                data[pic_id+'.jpg'] = bboxes_list
-                ped_pictures += 1
-            else:
-                data[pic_id+'.jpg'].append(bboxes_list)
+            if row[6] > 0:
+                pedestrians += 1
+                bboxes_list = []
+                bbox = []
+                bbox.append(row[2])
+                bbox.append(row[3])
+                bbox.append(row[4])
+                bbox.append(row[5])
+                bboxes_list.append(bbox)
+                pic_id = str(int(row[0]))
+                if pic_id + '.jpg' not in data:
+                    data[pic_id+'.jpg'] = bboxes_list
+                    ped_pictures += 1
+                else:
+                    data[pic_id+'.jpg'].append(bboxes_list)
     tot_pictures = len(data)
 
     # write results in json file
