@@ -69,7 +69,7 @@ if __name__ == "__main__":
     tot_pictures = len(data)
 
     # write results in json file
-    json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/mot17-label.json', 'w'))
+    json.dump(data, open("/Users/luigi/Git/Pedect/sofar-obstacle-detection" + '/mot17-label.json', 'w'))
 
     print("\nTotal number of pictures: ", tot_pictures)
     print("Total number of pedestrians: ", pedestrians)
