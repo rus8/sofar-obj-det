@@ -23,19 +23,19 @@ Cutting could be done using solution from
 [this](https://github.com/jainanshul/caltech-pedestrian-dataset-extractor) 
 GitHub repository.
 
-It requires to install some packages:\
-`$ sudo apt install nodejs-legacy npm`\
-and then to install requirements (run command from repo folder):\
+It requires to install some packages: \
+`$ sudo apt install nodejs-legacy npm` \
+and then to install requirements (run command from repo folder): \
 `$ npm install`
 
 Finally run the script for frame cutting (it is assumed that there is folder 
-`data/` with unpacked dataset in the same directory):\
+`data/` with unpacked dataset in the same directory): \
 `$ node caltech_pd.js`
 
 ## Evaluation results
-Total number of pictures:  208542\
-Total number of pedestrians:  185884\
-Total number of pictures with pedestrians:  89482\
-Total number of pictures without pedestrians:  119060\
-Average of pedestrians per picture with pedestrians:  2.0773\
+Total number of pictures:  208542 \
+Total number of pedestrians:  185884 \
+Total number of pictures with pedestrians:  89482 \
+Total number of pictures without pedestrians:  119060 \
+Average of pedestrians per picture with pedestrians:  2.0773 \
 Average of pedestrians per picture in general:  0.8913
