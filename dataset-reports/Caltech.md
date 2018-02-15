@@ -18,7 +18,7 @@ and "person?" classes to have data exactly for our problem. So resulting
 dataset should contain images only with "person" instances, and images 
 without any of above classes.
 
-## Cutting frames from videos
+## Cutting videos to frames
 Cutting could be done using solution from 
 [this](https://github.com/jainanshul/caltech-pedestrian-dataset-extractor) 
 GitHub repository.
