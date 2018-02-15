@@ -47,9 +47,9 @@ For our purpose we decided to drop pictures with people inside vehicles to not c
 
 Here are reported only evaluation results relative to MOT-09 block of pictures.
 
-Total number of pictures: 525 \
-Total number of pedestrians: 5325 \
-Total number of pictures with pedestrians: 525 \
-Total number of pictures without pedestrians: 0 \
-Average of pedestrians per picture with pedestrians: 10.1428 \
+Total number of pictures: 525  \
+Total number of pedestrians: 5325  \
+Total number of pictures with pedestrians: 525  \
+Total number of pictures without pedestrians: 0  \
+Average of pedestrians per picture with pedestrians: 10.1428  \
 Average of pedestrians per picture in general:  10.1428
