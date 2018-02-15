@@ -24,9 +24,9 @@ It provides several pictures with corresponding labels files to train the networ
 
 
 ## Evaluation results
-Total number of pictures:  7481  \
-Total number of pedestrians:  4487  \
-Total number of pictures with pedestrians:  1779  \
-Total number of pictures without pedestrians:  5702  \
-Average of pedestrians per picture with pedestrians:  2.5222  \
+Total number of pictures:  7481  
+Total number of pedestrians:  4487  
+Total number of pictures with pedestrians:  1779  
+Total number of pictures without pedestrians:  5702  
+Average of pedestrians per picture with pedestrians:  2.5222  
 Average of pedestrians per picture in general:  0.5997
