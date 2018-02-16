@@ -24,7 +24,7 @@ ___
 
 ### 1. Find datasets
 Suitable dataset should contain images or image sequences of scenes, where different number
-of persons could present. Labels should determine position of the person on the image in terms
+of persons could be present. Labels should determine position of the person on the image in terms
 of the bounding box (or should be convertible to bounding box).
 
 Datasets with pedestrians:
