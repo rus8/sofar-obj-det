@@ -1,4 +1,4 @@
-""" Evaluation of Caltech Pedestrian dataset
+""" Arranging of Caltech Pedestrian dataset
 
 This script analyses labels, selects proper bounding boxes,
 saves them in special YOLO format, and copies images giving
@@ -14,7 +14,6 @@ dataset directory.
 import os
 import shutil
 import glob
-import json
 from scipy.io import loadmat
 from collections import defaultdict
 
@@ -137,13 +136,3 @@ for dname in sorted(glob.glob(data_path + '/annotations/set*')):
                 # labels[set_name + '-' + video_name + '-' + str(frame_id) + '.jpg'] = bboxes
         print(dname, anno_fn, n_obj)
         pedestrians += n_obj
-#
-# print('Number of objects:', pedestrians)
-# json.dump(labels, open(data_path + '/caltech-labels.json', 'w'))
-#
-# print("\nTotal number of pictures: ", tot_pictures)
-# print("Total number of pedestrians: ", pedestrians)
-# print("Total number of pictures with pedestrians: ", ped_pictures)
-# print("Total number of pictures without pedestrians: ", tot_pictures - ped_pictures)
-# print("Average of pedestrians per picture with pedestrians: ", pedestrians / ped_pictures)
-# print("Average of pedestrians per picture in general: ", pedestrians / tot_pictures)
