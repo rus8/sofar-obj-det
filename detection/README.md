@@ -1,29 +1,5 @@
 # CNN for detection
 
-## YOLO architecture
-
-There are several well known object detection approaches which use CNN
-as their main part: Fast RCNN, Faster RCNN, SSD, YOLO, and others.
-
-For our problem we selected [YOLO](https://arxiv.org/abs/1506.02640) 
-(there also exists the [second version](https://arxiv.org/abs/1612.08242)) as it has ability to simultaneously
-detect (in one pass) and classify object in image. SSD architecture also has this
-property, but choice of YOLO was also dictated by presence of really
-light version of architecture "Tiny YOLO". It should be able to perform in real
-time pace on low grade hardware like mobile versions of NVIDIA GPUs in
-laptops or [NVIDIA Jetson TX](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems-dev-kits-modules/)
-modules. However, Tiny YOLO has worse accuracy than full size network.
-
-Authors of YOLO provide their implementation in pure C and CUDA called 
-[Darknet](https://pjreddie.com/darknet/). It requires compilation from 
-source and presence of CUDA Toolkit. According to requirements of the 
-project we have tpo use TensorFlow so we looked on the internet and found
-implementation [darkflow](https://github.com/thtrieu/darkflow),
-which allows to easily use YOLO in TensorFlow. It allows to try 
-architecture without CUDA Toolkit using only CPU version of TensorFlow, 
-however it requires installation which includes compilation of some
-Cython functions which are required for YOLO to make it faster.
-
 ## Running existing detectors
 
 ## Training our detector

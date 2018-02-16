@@ -4,22 +4,14 @@
 * Ruslan Aminev
 * Luigi Secondo
 
-___
-
-### Plan draft
+### Project plan
 
 1. Find datasets
 2. Evaluate datasets, select feasible one
 3. Choose detection algorithm (DNN architecture)
 4. Prepare labels according to chosen algorithm
-5. Evaluate the perfomance of the algorithm
+5. Develop training pipeline and train neural network
 6. Integrate algorithm in ROS
-7. Apply algorithm to real robot (Husqvarna)
-
-### Possible enhancements
-
-* Combine several datasets in one
-
 ___
 
 ### 1. Find datasets
@@ -30,10 +22,10 @@ of the bounding box (or should be convertible to bounding box).
 Datasets with pedestrians:
 1. KITTI
 
-    Among lot of various road environment datasets there are two which are useful    for our problem:
+    Among lot of various road environment datasets there is one which is
+    useful    for our problem:
     * [Dataset for detection](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=2d) 
     with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc).
-    * [Dataset for object tracking](http://www.cvlibs.net/datasets/kitti/eval_tracking.php) with the same 8 classes. 
 
         
 2. Cityscapes
@@ -70,32 +62,71 @@ ___
 
 ### 2. Evaluation of datasets
 With a first "human" evaluation we concluded that:
-1. KITTI is a useful dataset, rich of detected pictures with well-made labels
-2. Cityscapes is a segmentation dataset and it'll require a lot of work to convert segmentation labels to bounding boxes for detection, so we have decided to drop it
-3. Daimler has only black & white pictures so we have decided to drop it
-4. Caltech: Ruslan is working on it
-5. MOT-17 The main interest of the dataset is to track multiple people tracking algorithm.
-6. KAIST TO DO
+1. KITTI is not very large but is could be useful, so we evaluate it. 
+2. Cityscapes is a segmentation dataset and it'll require a lot 
+of work to convert segmentation labels to bounding boxes for detection, 
+so we have decided to drop it.
+3. Daimler has only black & white pictures, so we have decided to drop it.
+4. Caltech was created specifically for our problem and has a lot of
+images, so we evaluate it.
+5. MOT-17 was also created for pedestrians detection, so we evaluate it.
+6. KAIST is compatible with Caltech and has a lot of images, so we 
+evaluate it.
 7. Oxford is too big to be evaluated with our personal machines so we have decided to drop it
 
-For a more detailed report for each evalued dataset check `Dataset reports` folder
+For a more detailed report for each evaluated dataset (1, 4, 5, 6) 
+check `README.md` in `data-eval` folder.
+___
 
+### 3. Choose detection algorithm
+
+There are several well known object detection approaches which use CNN
+as their main part: Fast RCNN, Faster RCNN, SSD, YOLO, and others.
+
+For our problem we selected [YOLO](https://arxiv.org/abs/1506.02640) 
+(there also exists the [second version](https://arxiv.org/abs/1612.08242)) as it has ability to simultaneously
+detect (in one pass) and classify object in image. SSD architecture also has this
+property, but choice of YOLO was also dictated by presence of really
+light version of architecture "Tiny YOLO". It should be able to perform in real
+time pace on low grade hardware like mobile versions of NVIDIA GPUs in
+laptops or [NVIDIA Jetson TX](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems-dev-kits-modules/)
+modules. However, Tiny YOLO has worse accuracy than full size network.
+
+Authors of YOLO provide their implementation in pure C and CUDA called 
+[Darknet](https://pjreddie.com/darknet/). It requires compilation from 
+source and presence of CUDA Toolkit. According to requirements of the 
+project we have tpo use TensorFlow so we looked on the internet and found
+implementation [darkflow](https://github.com/thtrieu/darkflow),
+which allows to easily use YOLO in TensorFlow. It allows to try 
+architecture without CUDA Toolkit using only CPU version of TensorFlow, 
+however it requires installation which includes compilation of some
+Cython functions which are required for YOLO to make it faster.
+___
+
+### 4. Prepare labels
+Convert to YOLO format according to description on the webside.
+
+___
+
+### 5. Training
+
+Look for `README.md` in `detection` folder.
+
+Available resources on the Internet for training.
 ___
 
 ### 6. Integrate algorithm in ROS
-In order to run the project in a physical robot we need to implement it in ROS. 
-Here is how it should work:
+In order to run detection in ROS environment we create a ROS 
+Detection node which is able to read images from any appropriate topic.
+It runs detection and publishes results in ROS to make them available 
+for other nodes.
 
-* Camera publisher publishes to ROS
-* Image subscriber waits image from the publisher
-* The received image is converted in numpy array
+![scheme](uml-scheme.png)
 
-Since we want to use images in conjunction with OpenCV, CvBridge is a ROS library that provides an interface between ROS
-To test if opencv supports input camera use the script `test-video-resource.py` (no need of ROS).
+To use OpenCV for image we have to convert them to OpenCV format 
+using CvBridge which a ROS library with requred functions.
 
-___
 
-### Sources
-* Integration of project in ROS:\
-[Basic scripts in python](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29) \
-[CvBridge](http://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython)
+### 7. Conclusion
+
+We should look for available architectures before evaluating datasets
