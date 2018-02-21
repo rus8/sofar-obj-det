@@ -1,0 +1,128 @@
+Index: darkflow/utils/orig_labels_parse.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- darkflow/utils/orig_labels_parse.py	(revision )
++++ darkflow/utils/orig_labels_parse.py	(revision )
+@@ -1,76 +0,0 @@
+-"""
+-parse true format annotations but for paticular image sizes
+-"""
+-
+-import os
+-import sys
+-import xml.etree.ElementTree as ET
+-import glob
+-
+-
+-def _pp(l):  # pretty printing
+-    for i in l: print('{}: {}'.format(i, l[i]))
+-
+-
+-def orig_labels_parse(ANN, pick, exclusive=False):
+-    print('Parsing for {} {}'.format(
+-        pick, 'exclusively' * int(exclusive)))
+-
+-    dumps = list()
+-    cur_dir = os.getcwd()
+-    os.chdir(ANN)
+-    annotations = os.listdir('.')
+-    # annotations = glob.glob(str(annotations) + '*.txt')
+-    size = len(annotations)
+-
+-    for i, file in enumerate(annotations):
+-        # progress bar
+-        sys.stdout.write('\r')
+-        percentage = 1. * (i + 1) / size
+-        progress = int(percentage * 20)
+-        bar_arg = [progress * '=', ' ' * (19 - progress), percentage * 100]
+-        bar_arg += [file]
+-        sys.stdout.write('[{}>{}]{:.0f}%  {}'.format(*bar_arg))
+-        sys.stdout.flush()
+-
+-        jpg = file.split('/')[-1]
+-        jpg = jpg.split('.')[0]+'.jpg'
+-        w = 640
+-        h = 480
+-        all = list()
+-
+-        # actual parsing
+-        with open(file) as in_file:
+-            lines = in_file.readlines()
+-
+-        for line in lines:
+-            box = line.split(' ')
+-            name = 'person'
+-            xn = int(float(box[1]) * w)
+-            xx = xn + int(float(box[3]) * w)
+-            yn = int(float(box[2]) * h)
+-            yx = yn + int(float(box[4]) * h)
+-            current = [name, xn, yn, xx, yx]
+-            all += [current]
+-
+-        add = [[jpg, [w, h, all]]]
+-        dumps += add
+-        in_file.close()
+-
+-    # gather all stats
+-    stat = dict()
+-    for dump in dumps:
+-        all = dump[1][2]
+-        for current in all:
+-            if current[0] in pick:
+-                if current[0] in stat:
+-                    stat[current[0]] += 1
+-                else:
+-                    stat[current[0]] = 1
+-
+-    print('\nStatistics:')
+-    _pp(stat)
+-    print('Dataset size: {}'.format(len(dumps)))
+-
+-    os.chdir(cur_dir)
+-    return dumps
+\ No newline at end of file
+Index: labels.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- labels.txt	(revision )
++++ labels.txt	(date 1518379916000)
+@@ -1,1 +1,4 @@
+-person
+\ No newline at end of file
++aeroplane
++bicycle
++bird
++boat
+\ No newline at end of file
+Index: darkflow/net/yolo/data.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- darkflow/net/yolo/data.py	(revision )
++++ darkflow/net/yolo/data.py	(date 1518379916000)
+@@ -1,5 +1,4 @@
+-# from ...utils.pascal_voc_clean_xml import pascal_voc_clean_xml
+-from ...utils.orig_labels_parse import orig_labels_parse
++from ...utils.pascal_voc_clean_xml import pascal_voc_clean_xml
+ from numpy.random import permutation as perm
+ from .predict import preprocess
+ # from .misc import show
+@@ -16,12 +15,7 @@
+         msg = 'Annotation directory not found {} .'
+         exit('Error: {}'.format(msg.format(ann)))
+     print('\n{} parsing {}'.format(meta['model'], ann))
+-    # try:
+-    #     dumps = pascal_voc_clean_xml(ann, meta['labels'], exclusive)
+-    # except:
+-    #     print("LET'S USE TRUE YOLO FORMAT")
+-    # else:
+-    dumps = orig_labels_parse(ann, meta['labels'], exclusive)
++    dumps = pascal_voc_clean_xml(ann, meta['labels'], exclusive)
+     return dumps
+ 
+ 
