@@ -1,3 +1,8 @@
+# Evaluation
+
+The main purpose is to select only single person labels in particular 
+dataset and count important images and objecs.
+
 # Kitti Dataset
 Among lot of various road environment datasets there are two which are useful    for our problem:
 * [Dataset for detection](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=2d) 

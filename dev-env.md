@@ -2,7 +2,9 @@
 
 Description of environment configuration to run all scripts in this repo.
 
-Everything was set up in standard Ubuntu 16.04 Installation.
+Everything was set up in standard Ubuntu 16.04 Installation. Using
+virtual environment is suggested, so instructions to install it are
+ also included.
 
 ## Python
 
@@ -33,11 +35,14 @@ Install OpenCV package (unofficial!) in your new venv:
 Install Cython for darkflow:  
 `(venv) $ pip install cython`
 
-Install TensorFlow for darkflow:  
+Install TensorFlow for darkflow (it is required 
+[CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) and 
+[cuDNN](https://developer.nvidia.com/cudnn) to be installed, it's 
+better to also refer [this](https://www.tensorflow.org/install/install_linux) instructions):  
 `(venv) $ pip install tensorflow-gpu==1.0`
 
-## darkflow
-Implementation of "darknet"
+## Darkflow
+Implementation of "Darknet"
 for YOLO in TensorFlow. 
 
 1) Clone it from GitHub:  
@@ -45,6 +50,9 @@ for YOLO in TensorFlow.
     
 2) Enter darkflow directory:  
     `(venv) $ cd darkflow`
+    
+4) Apply patch to train on Caltech dataset  
+    `(venv) $ git apply Train_on_Caltech.patch`
     
 3) Setup it locally using your new venv:  
     `(venv) $ pip install .`

@@ -21,6 +21,7 @@ from collections import defaultdict
 # "images" folder.
 data_path = '/home/rr/Desktop/Caltech_ped_det'
 
+# Size of image in dataset
 img_w = 640
 img_h = 480
 

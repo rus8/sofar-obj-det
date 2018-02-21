@@ -160,8 +160,8 @@ for other nodes.
 
 To use OpenCV for image we have to convert them to OpenCV format 
 using CvBridge which a ROS library with requred functions.
+___
 
-
-### 7. Conclusion
+### Conclusion
 
 We should look for available architectures before evaluating datasets
