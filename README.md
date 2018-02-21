@@ -158,10 +158,14 @@ for other nodes.
 
 ![scheme](uml-scheme.png)
 
-To use OpenCV for image we have to convert them to OpenCV format 
-using CvBridge which a ROS library with requred functions.
+To use OpenCV for image related operations  we have to convert them to 
+OpenCV format using CvBridge which is a ROS library with required functions.
+
+
 ___
 
 ### Conclusion
 
-We should look for available architectures before evaluating datasets
+- 
+- check compatability of libraries
+- look for available architectures before evaluating datasets
