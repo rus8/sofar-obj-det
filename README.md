@@ -15,15 +15,16 @@
 ___
 
 ### 1. Find datasets
-Suitable dataset should contain images or image sequences of scenes, where different number
-of persons could be present. Labels should determine position of the person on the image in terms
+Suitable dataset should contain images or image sequences of scenes, 
+where different number of persons could be present. Labels should 
+determine position of the person on the image in terms
 of the bounding box (or should be convertible to bounding box).
 
 Datasets with pedestrians:
 1. KITTI
 
-    Among lot of various road environment datasets there is one which is
-    useful    for our problem:
+    Among lot of various road environment datasets there is one 
+    which is useful for our problem:
     * [Dataset for detection](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=2d) 
     with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc).
 
@@ -62,7 +63,7 @@ ___
 
 ### 2. Evaluation of datasets
 With a first "human" evaluation we concluded that:
-1. KITTI is not very large but is could be useful, so we evaluate it. 
+1. KITTI is not very large but could be useful, so we evaluate it. 
 2. Cityscapes is a segmentation dataset and it'll require a lot 
 of work to convert segmentation labels to bounding boxes for detection, 
 so we have decided to drop it.
@@ -70,7 +71,7 @@ so we have decided to drop it.
 4. Caltech was created specifically for our problem and has a lot of
 images, so we evaluate it.
 5. MOT-17 was also created for pedestrians detection, so we evaluate it.
-6. KAIST is compatible with Caltech and has a lot of images, so we 
+6. KAIST is compatible with Caltech in terms of labels and has a lot of images, so we 
 evaluate it.
 7. Oxford is too big to be evaluated with our personal machines so we have decided to drop it
 
@@ -95,24 +96,58 @@ modules. However, Tiny YOLO has worse accuracy than full size network.
 Authors of YOLO provide their implementation in pure C and CUDA called 
 [Darknet](https://pjreddie.com/darknet/). It requires compilation from 
 source and presence of CUDA Toolkit. According to requirements of the 
-project we have tpo use TensorFlow so we looked on the internet and found
+project we have to use TensorFlow so we looked on the internet and found
 implementation [darkflow](https://github.com/thtrieu/darkflow),
 which allows to easily use YOLO in TensorFlow. It allows to try 
 architecture without CUDA Toolkit using only CPU version of TensorFlow, 
 however it requires installation which includes compilation of some
 Cython functions which are required for YOLO to make it faster.
+
+We are able to run existing detectors for several classes, 
+which are trained on [VOC](http://host.robots.ox.ac.uk/pascal/VOC/)
+or [COCO](http://cocodataset.org/#home) datasets with "person" class
+among others (see `detection/cam_inference.py` and 
+`detection/img_inference.py`). To perform this darkflow is used 
+according the instructions in it's repository.
+
 ___
 
 ### 4. Prepare labels
-Convert to YOLO format according to description on the webside.
 
+Darkflow is said to be TensorFlow implementation of Darknet, however 
+it's internal label parsing tools for training are not designed according to Darknet
+conventions, which are described on Darknet website.
+
+So to use Darkflow for training with your own dataset it's required to 
+change some code to use labels formatted according to Darknet 
+well defined rules. In our case a patch was written.
+
+The whole process is described in more details in `detection/README.md`.
 ___
 
 ### 5. Training
 
-Look for `README.md` in `detection` folder.
+If the dataset and network configuration are prepared properly training
+is easy, one just have to use Darkflow command to do it:  
+`flow --model cfg/tiny-yolo-voc-3c.cfg --load bin/tiny-yolo-voc.weights 
+--train --annotation train/Annotations --dataset train/Images`
 
-Available resources on the Internet for training.
+For more details also look in `README.md` in `detection` folder.
+
+Unfortunately there were no proper hardware available for training,
+but there are some possibilities to use online services:
+1. [Amazon Web Services](https://aws.amazon.com/) 
+(some credits are available via
+[GitHub Student Developer Pack](https://education.github.com/pack)).
+2. [Google Cloud Platform](https://cloud.google.com) with 300$ free credits.
+3. [Google Colaboratory](https://colab.research.google.com/notebooks/welcome.ipynb) 
+with totally free access to machines with NVIDIA Tesla K80 13Gb.
+
+However understanding and configuration of this tools require a lot of 
+time compared with straightforward training using local machine. So
+for now we don't provide our trained neural network specifically for 
+the problem of pedestrian detection, but developed workflow allows 
+to easily do this.
 ___
 
 ### 6. Integrate algorithm in ROS
