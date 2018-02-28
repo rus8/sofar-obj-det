@@ -166,7 +166,7 @@ ___
 
 ### Conclusion
 
-A demo video of the working network could 
+A demo video of the working project is avaliable [here](https://drive.google.com/file/d/1RjbMC3CXnHgsTnqRFcXj05x7dqfeF5ge/view?usp=sharing).
 
 - check compatability of libraries
 - look for available architectures before evaluating datasets
