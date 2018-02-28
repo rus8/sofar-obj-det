@@ -9,7 +9,7 @@ Among lot of various road environment datasets there are two which are useful   
 with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc).
 * [Dataset for object tracking](http://www.cvlibs.net/datasets/kitti/eval_tracking.php) with the same 8 classes. 
 
-It provides several pictures with corresponding labels files to train the network and many other pictures to test the training (see folder `detection).
+It provides several pictures with corresponding labels files to train the network and many other pictures to test the training (see folder `detection`).
 
 ![alt text](kitti.png)
 ## Labels description:
@@ -81,7 +81,7 @@ The main interest of the authors of the dataset is to track moving objects in vi
 They provide a set of 600 pictures with a labels file.
 A detailed description of dataset and relative benchmarks can be found [here](https://arxiv.org/pdf/1603.00831.pdf).
 
-Mot provides pictures divided in blocks which represent different scenes. We have decided to use only blocks in which pedestrian are as spaced as possible in order to avoid ambiguities in the training phase of the network. For this purpose the best block is `MOT-09.
+Mot provides pictures divided in blocks which represent different scenes. We have decided to use only blocks in which pedestrian are as spaced as possible in order to avoid ambiguities in the training phase of the network. For this purpose the best block is `MOT-09`.
 
 ![](MOT17.jpg)
 
