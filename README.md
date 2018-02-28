@@ -166,8 +166,13 @@ ___
 
 ### Conclusion
 
-<iframe src="https://www.dropbox.com/s/qmcb9zv7i3ejwfm/Pedect%20demo.MOV?dl=0">
-</iframe>
+<script src="http://vjs.zencdn.net/4.0/video.js"></script>
+
+<video id="pelican-installation" class="video-js vjs-default-skin" controls
+preload="auto" width="683" height="384" poster="Pedect demo prev.png"
+data-setup="{}">
+<source src="Pedect demo.MOV" type='video'>
+</video>
 
 - check compatability of libraries
 - look for available architectures before evaluating datasets
