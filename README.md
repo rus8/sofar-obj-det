@@ -166,11 +166,7 @@ ___
 
 ### Conclusion
 
-[![Pedect demo video](https://img.youtube.com/vi/-jRmGT9FRE0/0.jpg)](https://youtu.be/-jRmGT9FRE0)
-
-
-<iframe width="420" height="315"
-src="https://drive.google.com/file/d/1RjbMC3CXnHgsTnqRFcXj05x7dqfeF5ge/view?usp=sharing">
+<iframe src="https://www.dropbox.com/s/qmcb9zv7i3ejwfm/Pedect%20demo.MOV?dl=0">
 </iframe>
 
 - check compatability of libraries
