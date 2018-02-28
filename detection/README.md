@@ -1,7 +1,8 @@
 # CNN for detection
-Training and detection is performed via Darkflow library.
+Training is performed via Darkflow library. For detection there are two approaches presented:
+via Darkflow and via pure TensorFlow.
 
-## Running existing detectors
+## Inference via Darkflow
 Running existing detectors is pretty straight forward. One could follow
 instructions in Darkflow repository. 
 
@@ -9,6 +10,9 @@ To provide examples we wrote
 scripts: `detection/cam_inferance.py` and `detection/img_inference.py`.  
 To run them one should download from Darknet website [weights](https://pjreddie.com/media/files/tiny-yolo-voc.weights`) 
 of TinyYOLO network trained on PASCAL VOC dataset.
+
+## Inference via "objdet" package (pure TensorFlow)
+
 
 ## Training the detector
 According to the guide on the [official website](https://pjreddie.com/darknet/yolo/)
