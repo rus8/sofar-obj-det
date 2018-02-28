@@ -36,42 +36,38 @@ if __name__== "__main__":
     ped_pictures = 0
     tot_pictures = 0
     for current_file in filePaths:
-    #for root, dirs, files in os.walk(path):
+        tot_pictures += 1
+        # count number of lines in the file
+        lines = file_len(current_file)
+        fo = open(current_file, "r")
+        bboxes = []
 
-        for current_file in files:
-            tot_pictures += 1
-            # count number of lines in the file
-            lines = file_len(current_file)
-            fo = open(current_file, "r")
-            bboxes = []
+        print("Analyzing file: " + current_file)
+        for x in range(lines):
+            """Check pedestrian values
+            
+            Split the line every time I find a space and then analyze the values
+            """
+            line = fo.readline()
+            words = line.split(" ")
+            if words[0] == "person":
+                pedestrians += 1
+                coordinates = []
+                coordinates.append(int(words[1]))
+                coordinates.append(int(words[2]))
+                coordinates.append(int(words[3]))
+                coordinates.append(int(words[4]))
+                bboxes.append(coordinates)
 
-            for x in range(lines):
-                """Check pedestrian values
-                
-                Split the line every time I find a space and then analyze the values
-                """
-                line = fo.readline()
-                words = line.split(" ")
-                if words[0] == "person":
-                    pedestrians += 1
-                    coordinates = []
-                    coordinates.append(int(words[1]))
-                    coordinates.append(int(words[2]))
-                    coordinates.append(int(words[3]))
-                    coordinates.append(int(words[4]))
-                    bboxes.append(coordinates)
+        # Close opened file
+        fo.close()
 
-            # Close opened file
-            fo.close()
-
-            # Add things to the dictionary
-            path_words = current_file.split("/")
-            picture_code = path_words[-1].split(".")
-            data[picture_code[0] + '.png'] = bboxes
-            if bboxes:
-                ped_pictures += 1
-    # write results in json file
-    json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/kitti-label.json', 'w'))
+        # Add things to the dictionary
+        path_words = current_file.split("/")
+        picture_code = path_words[-1].split(".")
+        data[picture_code[0] + '.png'] = bboxes
+        if bboxes:
+            ped_pictures += 1
 
     print("\nTotal number of pictures: ", tot_pictures)
     print("Total number of pedestrians: ", pedestrians)
