@@ -12,6 +12,7 @@
 4. Prepare labels according to chosen algorithm
 5. Develop training pipeline and train neural network
 6. Integrate algorithm in ROS
+
 ___
 
 ### 1. Find datasets
@@ -166,7 +167,9 @@ ___
 
 ### Conclusion
 
-A demo video of the working project is avaliable [here](https://drive.google.com/file/d/1RjbMC3CXnHgsTnqRFcXj05x7dqfeF5ge/view?usp=sharing).
+A demo video of the working project is available [here](https://drive.google.com/file/d/1RjbMC3CXnHgsTnqRFcXj05x7dqfeF5ge/view?usp=sharing).
+
+
 
 - check compatability of libraries
 - look for available architectures before evaluating datasets
