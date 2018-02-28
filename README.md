@@ -7,7 +7,7 @@
 ### Project plan
 
 1. Find datasets
-2. Evaluate datasets, select feasible one
+2. Evaluate datasets, select feasible ones
 3. Choose detection algorithm (DNN architecture)
 4. Prepare labels according to chosen algorithm
 5. Develop training pipeline and train neural network
@@ -77,7 +77,7 @@ evaluate it.
 7. Oxford is too big to be evaluated with our personal machines so we have decided to drop it
 
 For a more detailed report for each evaluated dataset (1, 4, 5, 6) 
-check `README.md` in `data-eval` folder.
+check `data-eval/README.md` report.
 ___
 
 ### 3. Choose detection algorithm
@@ -128,12 +128,12 @@ ___
 
 ### 5. Training
 
-If the dataset and network configuration are prepared properly training
+If the dataset and network configuration are prepared properly, training
 is easy, one just have to use Darkflow command to do it:  
 `flow --model cfg/tiny-yolo-voc-3c.cfg --load bin/tiny-yolo-voc.weights 
 --train --annotation train/Annotations --dataset train/Images`
 
-For more details also look in `README.md` in `detection` folder.
+For more details also look in `detection/README.md`.
 
 Unfortunately there were no proper hardware available for training,
 but there are some possibilities to use online services:
@@ -162,14 +162,16 @@ for other nodes.
 To use OpenCV for image related operations  we have to convert them to 
 OpenCV format using CvBridge which is a ROS library with required functions.
 
+A detailed report of the ROS integration phase is available in `pedect-ws/README.md`
 
 ___
 
-### Conclusion
+### Video demo
 
 A demo video of the working project is available [here](https://drive.google.com/file/d/1RjbMC3CXnHgsTnqRFcXj05x7dqfeF5ge/view?usp=sharing).
 
+### Conclusion
 
-
+During our project development we learned that there are things to do in a better way:
 - check compatability of libraries
 - look for available architectures before evaluating datasets
