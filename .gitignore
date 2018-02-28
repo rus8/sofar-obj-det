@@ -1,3 +1,7 @@
 #pycharm
 .idea/
 
+pedect-ws/build/*
+pedect-ws/devel/*
+pedect-ws/logs/*
+pedect-ws/.catkin_tools/*
