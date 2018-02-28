@@ -166,13 +166,7 @@ ___
 
 ### Conclusion
 
-<script src="http://vjs.zencdn.net/4.0/video.js"></script>
-
-<video id="pelican-installation" class="video-js vjs-default-skin" controls
-preload="auto" width="683" height="384" poster="Pedect demo prev.png"
-data-setup="{}">
-<source src="Pedect demo.MOV" type='video'>
-</video>
+A demo video of the working network could 
 
 - check compatability of libraries
 - look for available architectures before evaluating datasets
