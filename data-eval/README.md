@@ -139,6 +139,8 @@ Average of pedestrians per picture in general:  10.1428
 The dataset was created for pedestrian detection in fact it uses the standard provided by caltech for the architecture of the project and for label files.
 
 > Most existing datasets focus on a color channel, while a thermal channel is helpful for detection even in a dark environment. With this in mind, Kaist proposes a multispectral pedestrian dataset which provides well aligned color-thermal image pairs, captured by beam splitter-based special hardware. The color-thermal dataset is as large as previous color-based datasets and provides dense annotations including temporal correspondences.
+
+![](Kaist.jpg)
 ## Labels description
 Each label file has the same code of the relative picture and provides a first line with `% bbGt version=3` string and then (if exist) a line for each object recognised in the picture as follows:
 
