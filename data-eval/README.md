@@ -14,17 +14,17 @@ It provides several pictures with corresponding labels files to train the networ
 ![alt text](kitti.png)
 ## Labels description:
 
-| Values | Name | Description |
+| Position | Name | Description |
 |:------:|:-----:|:----------|
-| 1 | type | Describes the type of object: 'Car', 'Van', 'Truck', 'Pedestrian', 'Person_sitting', 'Cyclist', 'Tram', 'Misc' or 'DontCare'|
+| 0 | type | Describes the type of object: 'Car', 'Van', 'Truck', 'Pedestrian', 'Person_sitting', 'Cyclist', 'Tram', 'Misc' or 'DontCare'|
 | 1 | truncated | Float from 0 (non-truncated) to 1 (truncated), where truncated refers to the object leaving image boundaries |
-| 1 | Occulted | Integer (0,1,2,3) indicating occlusion state: 0 = fully visible, 1 = partly occluded 2 = largely occluded, 3 = unknown |
-| 1 | alpha | Observation angle of object, ranging [-pi..pi] |
-| 4 | bbox | 2D bounding box of object in the image (0-based index): contains left, top, right, bottom pixel coordinates | 
-| 3 | dimentions | 3D object dimensions: height, width, length (in meters) |
-| 3 | location | 3D object location x,y,z in camera coordinates (in meters) |
-| 1 | rotation_y | Rotation ry around Y-axis in camera coordinates [-pi..pi] |
-| 1 | score | Only for results: Float, indicating confidence in detection, needed for p/r curves, higher is better. |
+| 2 | Occulted | Integer (0,1,2,3) indicating occlusion state: 0 = fully visible, 1 = partly occluded 2 = largely occluded, 3 = unknown |
+| 3 | alpha | Observation angle of object, ranging [-pi..pi] |
+| 4-7 | bbox | 2D bounding box of object in the image (0-based index): contains left, top, right, bottom pixel coordinates | 
+| 8-10 | dimentions | 3D object dimensions: height, width, length (in meters) |
+| 11-13 | location | 3D object location x,y,z in camera coordinates (in meters) |
+| 14 | rotation_y | Rotation ry around Y-axis in camera coordinates [-pi..pi] |
+| 15 | score | Only for results: Float, indicating confidence in detection, needed for p/r curves, higher is better. |
 
 ## Evaluation results
 Total number of pictures:  7481  
@@ -133,3 +133,35 @@ Total number of pictures with pedestrians: 525
 Total number of pictures without pedestrians: 0  
 Average of pedestrians per picture with pedestrians: 10.1428  
 Average of pedestrians per picture in general:  10.1428
+
+# Kaist dataset
+
+The dataset was created for pedestrian detection in fact it uses the standard provided by caltech for the architecture of the project and for label files.
+
+> Most existing datasets focus on a color channel, while a thermal channel is helpful for detection even in a dark environment. With this in mind, Kaist proposes a multispectral pedestrian dataset which provides well aligned color-thermal image pairs, captured by beam splitter-based special hardware. The color-thermal dataset is as large as previous color-based datasets and provides dense annotations including temporal correspondences.
+## Labels description
+Each label file has the same code of the relative picture and provides a first line with `% bbGt version=3` string and then (if exist) a line for each object recognised in the picture as follows:
+
+| Position | Name | Description |
+|:------:|:-----:|:----------|
+| 0 | Class | Indicate at which frame the object is present |
+| 1 | Bounding box left | Each pedestrian trajectory is identified by a unique ID (−1 for detections) |
+| 2 | Bounding box right | Coordinate x of the top-left corner of the pedestrian bounding box |
+| 3 | Bounding box width | Width in pixels of the pedestrian bounding box | 
+| 4 | Bounding box height | Height in pixels of the pedestrian bounding box |
+| 5 | Non relevant | This values are not relevant for our analysis |
+| 6 | Non relevant | This values are not relevant for our analysis |
+| 7 | Non relevant | This values are not relevant for our analysis |
+| 8 | Non relevant | This values are not relevant for our analysis |
+| 9 | Non relevant | This values are not relevant for our analysis |
+| 10 | Non relevant | This values are not relevant for our analysis |
+| 11 | Non relevant | This values are not relevant for our analysis |
+
+##Evaluation results
+
+Total number of pictures:  95324  
+Total number of pedestrians:  86152  
+Total number of pictures with pedestrians:  37742  
+Total number of pictures without pedestrians:  57582  
+Average of pedestrians per picture with pedestrians:  2.28  
+Average of pedestrians per picture in general:  0.90  
