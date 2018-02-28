@@ -166,7 +166,7 @@ ___
 
 ### Conclusion
 
-[![Pedect demo video](https://youtu.be/-jRmGT9FRE0)](https://youtu.be/-jRmGT9FRE0)
-- 
+[![Pedect demo video](https://img.youtube.com/vi/-jRmGT9FRE0/0.jpg)](https://youtu.be/-jRmGT9FRE0)
+
 - check compatability of libraries
 - look for available architectures before evaluating datasets
