@@ -43,7 +43,7 @@ if __name__ == "__main__":
         for x in range(lines):
             """Check pedestrian values
 
-            I split the line every time I find a space and then analyze the values
+            Split the line every time I find a space and then analyze the values
             """
             line = fo.readline()
             words = line.split(" ")

@@ -9,8 +9,10 @@ Python dictionary / json format:
 """
 import glob
 import json
+import os
+
 # Change this with the path of labels folder
-path = "/Users/luigi/Desktop/Kaist/"
+path = "/Users/luigi/Desktop/Kaist/annotations"
 
 def file_len(fo):
     """ Number of lines per file
@@ -22,55 +24,52 @@ def file_len(fo):
     return i + 1
 
 if __name__== "__main__":
-    for 
 
-
-
-
-
-if __name__ == "__main__":
-    """Label files evaluation
-    The main purpose of this script is to understand how many pictures contain pedestrians and compute an average of pedestrians per picture.
-    """
-
+    filePaths = []
+    for root, dirs, files in os.walk(path):
+        dirs[:] = [d for d in dirs if not d.startswith('.')]
+        files[:] = [f for f in files if not f.startswith('.')]
+        for name in files:
+            filePaths.append(os.path.join(root, name))
     data = dict()
     pedestrians = 0
     ped_pictures = 0
     tot_pictures = 0
+    for current_file in filePaths:
+    #for root, dirs, files in os.walk(path):
 
-    for current_file in glob.glob(path + '*.txt'):
+        for current_file in files:
+            tot_pictures += 1
+            # count number of lines in the file
+            lines = file_len(current_file)
+            fo = open(current_file, "r")
+            bboxes = []
 
-        tot_pictures += 1
-        # count number of lines in the file
-        lines = file_len(current_file)
-        fo = open(current_file, "r")
-        bboxes = []
-        for x in range(lines):
-            """Check pedestrian values
+            for x in range(lines):
+                """Check pedestrian values
+                
+                Split the line every time I find a space and then analyze the values
+                """
+                line = fo.readline()
+                words = line.split(" ")
+                if words[0] == "person":
+                    pedestrians += 1
+                    coordinates = []
+                    coordinates.append(int(words[1]))
+                    coordinates.append(int(words[2]))
+                    coordinates.append(int(words[3]))
+                    coordinates.append(int(words[4]))
+                    bboxes.append(coordinates)
 
-            I split the line every time I find a space and then analyze the values
-            """
-            line = fo.readline()
-            words = line.split(" ")
-            if words[0] == "Pedestrian":
-                pedestrians += 1
-                coordinates = []
-                coordinates.append(float(words[4]))
-                coordinates.append(float(words[5]))
-                coordinates.append(float(words[6]))
-                coordinates.append(float(words[7]))
-                bboxes.append(coordinates)
+            # Close opened file
+            fo.close()
 
-        # Close opened file
-        fo.close()
-
-        # Add things to the dictionary
-        path_words = current_file.split("/")
-        picture_code = path_words[-1].split(".")
-        data[picture_code[0] + '.png'] = bboxes
-        if bboxes:
-            ped_pictures += 1
-
+            # Add things to the dictionary
+            path_words = current_file.split("/")
+            picture_code = path_words[-1].split(".")
+            data[picture_code[0] + '.png'] = bboxes
+            if bboxes:
+                ped_pictures += 1
     # write results in json file
     json.dump(data, open("/Users/luigi/Git/sofar-obstacle-detection/" + '/kitti-label.json', 'w'))
 
