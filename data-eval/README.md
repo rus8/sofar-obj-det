@@ -1,7 +1,7 @@
 # Evaluation
 
 The main purpose is to select only single person labels in particular 
-dataset and count important images and objecs.
+datasets and count important images and objecs.
 
 # Kitti Dataset
 Among lot of various road environment datasets there are two which are useful    for our problem:
@@ -9,7 +9,7 @@ Among lot of various road environment datasets there are two which are useful   
 with 8 classes (Car, Van, Truck, Pedestrian, Person_sitting, Cyclist, Tram, Misc).
 * [Dataset for object tracking](http://www.cvlibs.net/datasets/kitti/eval_tracking.php) with the same 8 classes. 
 
-It provides several pictures with corresponding labels files to train the network and many other pictures to test the training (see folder "Detection").
+It provides several pictures with corresponding labels files to train the network and many other pictures to test the training (see folder `detection).
 
 ![alt text](kitti.png)
 ## Labels description:
@@ -31,19 +31,18 @@ Total number of pictures:  7481
 Total number of pedestrians:  4487  
 Total number of pictures with pedestrians:  1779  
 Total number of pictures without pedestrians:  5702  
-Average of pedestrians per picture with pedestrians:  2.5222  
-Average of pedestrians per picture in general:  0.5997
+Average of pedestrians per picture with pedestrians:  2.52  
+Average of pedestrians per picture in general:  0.59
 
 
 # Caltech Pedestrian Dataset
 
 Dataset was created for the problem of pedestrian detection. 
-It contains objects of three classes "person" for single person, 
+It contains objects of three classes: "person" for single person, 
 "people" for group of persons, and "person?" for ambiguous cases. 
 
 Labeling is done in a very strange format usign MATLAB data structures
-and saved as ".vbb" files. 
-
+and saved as ".vbb" files.  
 Data is presented as video files of ".seq" format so it's necessary to cut
 this videos in separate images.
 
@@ -56,9 +55,8 @@ dataset should contain images only with "person" instances, and images
 without any of above classes.
 
 ## Cutting videos to frames
-Cutting could be done using solution from 
-[this](https://github.com/jainanshul/caltech-pedestrian-dataset-extractor) 
-GitHub repository.
+Cutting could be done using solution from this
+[Github repository](https://github.com/jainanshul/caltech-pedestrian-dataset-extractor).
 
 It requires to install some packages:  
 `$ sudo apt install nodejs-legacy npm`  
@@ -74,8 +72,8 @@ Total number of pictures:  208542
 Total number of pedestrians:  185884  
 Total number of pictures with pedestrians:  89482  
 Total number of pictures without pedestrians:  119060  
-Average of pedestrians per picture with pedestrians:  2.0773  
-Average of pedestrians per picture in general:  0.8913
+Average of pedestrians per picture with pedestrians:  2.07  
+Average of pedestrians per picture in general:  0.89
 
 
 # MOT17 Dataset
@@ -131,18 +129,18 @@ Total number of pictures: 525
 Total number of pedestrians: 5325  
 Total number of pictures with pedestrians: 525  
 Total number of pictures without pedestrians: 0  
-Average of pedestrians per picture with pedestrians: 10.1428  
-Average of pedestrians per picture in general:  10.1428
+Average of pedestrians per picture with pedestrians: 10.14  
+Average of pedestrians per picture in general:  10.14
 
 # Kaist dataset
 
-The dataset was created for pedestrian detection in fact it uses the standard provided by caltech for the architecture of the project and for label files.
+The dataset was created for pedestrian detection, in fact it uses the standard provided by caltech for the architecture of the project and for label files.
 
 > Most existing datasets focus on a color channel, while a thermal channel is helpful for detection even in a dark environment. With this in mind, Kaist proposes a multispectral pedestrian dataset which provides well aligned color-thermal image pairs, captured by beam splitter-based special hardware. The color-thermal dataset is as large as previous color-based datasets and provides dense annotations including temporal correspondences.
 
 ![](Kaist.jpg)
 ## Labels description
-Each label file has the same code of the relative picture and provides a first line with `% bbGt version=3` string and then (if exist) a line for each object recognised in the picture as follows:
+Each label file has the same name of the relative picture with different extension and provides a first line with `% bbGt version=3` string and then (if exist) a line for each object recognised in the picture as follows:
 
 | Position | Name | Description |
 |:------:|:-----:|:----------|
@@ -151,13 +149,13 @@ Each label file has the same code of the relative picture and provides a first l
 | 2 | Bounding box right | Coordinate x of the top-left corner of the pedestrian bounding box |
 | 3 | Bounding box width | Width in pixels of the pedestrian bounding box | 
 | 4 | Bounding box height | Height in pixels of the pedestrian bounding box |
-| 5 | Non relevant | This values are not relevant for our analysis |
-| 6 | Non relevant | This values are not relevant for our analysis |
-| 7 | Non relevant | This values are not relevant for our analysis |
-| 8 | Non relevant | This values are not relevant for our analysis |
-| 9 | Non relevant | This values are not relevant for our analysis |
-| 10 | Non relevant | This values are not relevant for our analysis |
-| 11 | Non relevant | This values are not relevant for our analysis |
+| 5 | Non relevant | This value is not relevant for our analysis |
+| 6 | Non relevant | This value is not relevant for our analysis |
+| 7 | Non relevant | This value is not relevant for our analysis |
+| 8 | Non relevant | This value is not relevant for our analysis |
+| 9 | Non relevant | This value is not relevant for our analysis |
+| 10 | Non relevant | This value is not relevant for our analysis |
+| 11 | Non relevant | This value is not relevant for our analysis |
 
 ##Evaluation results
 
