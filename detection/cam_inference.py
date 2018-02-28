@@ -32,14 +32,15 @@ if __name__ == "__main__":
         # {'bottomright': {'x': 264, 'y': 213}, 'confidence': 0.3534133, 'label': 'car', 'topleft': {'x': 193, 'y': 174}}
         bboxes = detector.return_predict(img)
         for box in bboxes:
-            color = random.choice(color_codes)
-            x1 = box['topleft']['x']
-            y1 = box['topleft']['y']
-            x2 = box['bottomright']['x']
-            y2 = box['bottomright']['y']
-            font = cv2.FONT_HERSHEY_PLAIN
-            img = cv2.rectangle(img, (x1, y1), (x2, y2), color, thickness=2)
-            img = cv2.putText(img, box['label'], (x1, y1), font, 1, color, thickness=2)
+            if box['label'] == 'person':
+                color = random.choice(color_codes)
+                x1 = box['topleft']['x']
+                y1 = box['topleft']['y']
+                x2 = box['bottomright']['x']
+                y2 = box['bottomright']['y']
+                font = cv2.FONT_HERSHEY_PLAIN
+                img = cv2.rectangle(img, (x1, y1), (x2, y2), color, thickness=2)
+                img = cv2.putText(img, box['label'], (x1, y1), font, 1, color, thickness=2)
 
 
         cv2.imshow("Camera stream", img)
