@@ -1,6 +1,7 @@
 """ Pure TensorFlow inference
 
-Load model from protobuf ".pb" file and run inference without using of Darkflow
+Detector class provides method to perform detection using
+TensorFlow and some postprocessing routines.
 """
 
 import json
@@ -16,6 +17,14 @@ from .cython_utils.cy_yolo2_findboxes import box_constructor
 class Detector:
 
     def __init__(self, pb_path, meta_path, gpu_name='', gpu_usage=0.0):
+        """
+        Initializes detector using files generated y Darkflow.
+
+        :param pb_path: Path to protobuf file with saved TensorFlow model.
+        :param meta_path: Path to meta file produced by Darkflow.
+        :param gpu_name: Name of device to use according to TensorFlow conventions.
+        :param gpu_usage: GPU usage in interval [0, 1].
+        """
         self.graph = tf.Graph()
         device_name = gpu_name \
             if gpu_usage > 0.0 else None
@@ -25,6 +34,14 @@ class Detector:
         return
 
     def build_from_pb(self, pb_path, meta_path, gpu_usage):
+        """
+        Build tensorflow graph from protobuf file. Setup metaparams and creates
+        TensorFlow session.
+
+        :param pb_path: Path to protobuf file with saved TensorFlow model.
+        :param meta_path: Path to meta file produced by Darkflow.
+        :param gpu_usage: GPU usage in interval [0, 1].
+        """
         with tf.gfile.FastGFile(pb_path, "rb") as f:
             graph_def = tf.GraphDef()
             graph_def.ParseFromString(f.read())
@@ -44,7 +61,14 @@ class Detector:
 
         self.setup_meta_ops(gpu_usage)
 
+        return
+
     def setup_meta_ops(self, gpu_usage):
+        """
+        Setup some metaparams and and create TensorFlow session.
+
+        :param gpu_usage: GPU usage in interval [0, 1].
+        """
         cfg = dict({
             'allow_soft_placement': False,
             'log_device_placement': False
@@ -64,7 +88,16 @@ class Detector:
         self.sess = tf.Session(config=tf.ConfigProto(**cfg))
         self.sess.run(tf.global_variables_initializer())
 
+        return
+
     def resize_input(self, im):
+        """
+        Resize image to size specified in metaparams, which is required
+         for network input.
+
+        :param im: Original image.
+        :return: Resized image.
+        """
         h, w, c = self.meta['inp_size']
         imsz = cv2.resize(im, (w, h))
         imsz = imsz / 255.
@@ -72,8 +105,16 @@ class Detector:
         return imsz
 
     def findboxes(self, net_out, thresh):
-        meta = self.meta
+        """
+        Use cython functions adapted from Darkflow
+        to perform postprocessing.
 
+        :param net_out: Network output.
+        :param thresh: Threshold for prediction confidence.
+        :return: Bounding boxes of detected objects.
+        """
+
+        meta = self.meta
         boxes = []
         # boxes = yolo_box_constructor(meta, net_out, thresh)
         boxes = box_constructor(meta, net_out)
@@ -81,6 +122,17 @@ class Detector:
         return boxes
 
     def process_box(self, b, h, w, threshold):
+        """
+        Process bounding box to scale it for corresponding original image size
+        and use meta data to find predicted class name.
+
+        :param b: Bounding box.
+        :param h: Original image height.
+        :param w: Original image width.
+        :param threshold: Threshold for prediction confidence.
+        :return: Bounding box coordinates, predicted class name,
+                and prediction confidence.
+        """
         max_indx = np.argmax(b.probs)
         max_prob = b.probs[max_indx]
         label = self.meta['labels'][max_indx]
@@ -94,29 +146,45 @@ class Detector:
             if top < 0:   top = 0
             if bot > h - 1:   bot = h - 1
             mess = '{}'.format(label)
-            return (left, right, top, bot, mess, max_indx, max_prob)
+            return (left, right, top, bot, mess, max_prob)
         return None
 
-    def postprocess(self, net_out, im, thresh):
-        """
-        Takes net output, collect boxes and return them
-        """
-        meta = self.meta
-        threshold = thresh
-        colors, labels = meta['colors'], meta['labels']
-
-        boxes = self.findboxes(net_out)
-
-        h, w, _ = im.shape
-        boxes = []
-        for b in boxes:
-            boxResults = self.process_box(b, h, w, threshold)
-            if boxResults is None:
-                continue
-            left, right, top, bot, label, max_indx, confidence = boxResults
-            boxes.append(boxResults)
+    # def postprocess(self, net_out, im, thresh):
+    #     """
+    #     Takes network output, collects bounding boxes and return them.
+    #
+    #     :param net_out:
+    #     :param im: Image
+    #     :param thresh:
+    #     :return:
+    #     """
+    #     meta = self.meta
+    #     threshold = thresh
+    #     colors, labels = meta['colors'], meta['labels']
+    #
+    #     boxes = self.findboxes(net_out)
+    #
+    #     h, w, _ = im.shape
+    #     boxes = []
+    #     for b in boxes:
+    #         boxResults = self.process_box(b, h, w, threshold)
+    #         if boxResults is None:
+    #             continue
+    #         left, right, top, bot, label, max_indx, confidence = boxResults
+    #         boxes.append(boxResults)
 
     def return_predict(self, im, threshold):
+        """
+        Main function to use to perform detection.
+
+        Performs prediction and constructs dictionary for each bounding box in the following
+        format:
+        {'bottomright': {'x': 264, 'y': 213}, 'confidence': 0.3534133, 'label': 'car', 'topleft': {'x': 193, 'y': 174}}
+
+        :param im: Input image.
+        :param threshold: Threshold for prediction confidence.
+        :return: List of bounding boxes.
+        """
         assert isinstance(im, np.ndarray), \
             'Image is not a np.ndarray'
         h, w, _ = im.shape
@@ -133,7 +201,7 @@ class Detector:
                 continue
             boxesInfo.append({
                 "label": tmpBox[4],
-                "confidence": tmpBox[6],
+                "confidence": tmpBox[5],
                 "topleft": {
                     "x": tmpBox[0],
                     "y": tmpBox[2]},
