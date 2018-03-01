@@ -98,7 +98,7 @@ Authors of YOLO provide their implementation in pure C and CUDA called
 [Darknet](https://pjreddie.com/darknet/). It requires compilation from 
 source and presence of CUDA Toolkit. According to requirements of the 
 project we have to use TensorFlow so we looked on the internet and found
-implementation [darkflow](https://github.com/thtrieu/darkflow),
+Python3 implementation [Darkflow](https://github.com/thtrieu/darkflow),
 which allows to easily use YOLO in TensorFlow. It allows to try 
 architecture without CUDA Toolkit using only CPU version of TensorFlow, 
 however it requires installation which includes compilation of some
@@ -151,7 +151,13 @@ the problem of pedestrian detection, but developed workflow allows
 to easily do this.
 ___
 
-### 6. Integrate algorithm in ROS
+### 6. Inference and integration in ROS
+Inference via Darkflow is described in `detection/README.md`. However to use
+detection in ROS we had to adapt some things for Python2, details are also
+provided in `detection/README.md`. We ended with our own Python2 package
+"objdet" which uses TensorFlow and some postprocessing functions adapted
+ from Darkflow.
+
 In order to run detection in ROS environment we create a ROS 
 Detection node which is able to read images from any appropriate topic.
 It runs detection and publishes results in ROS to make them available 
@@ -164,14 +170,20 @@ OpenCV format using CvBridge which is a ROS library with required functions.
 
 A detailed report of the ROS integration phase is available in `pedect-ws/README.md`
 
-___
-
-### Video demo
+#### Video demo
 
 A demo video of the working project is available [here](https://drive.google.com/file/d/1RjbMC3CXnHgsTnqRFcXj05x7dqfeF5ge/view?usp=sharing).
+___
 
 ### Conclusion
+To conclude we could say that almost all items of plan have been done 
+except of training on our own dataset. 
+
+Two things were most difficult in this project:
+* understanding the YOLO architecture and Darkflow framework,
+* integrating detection in ROS.
 
 During our project development we learned that there are things to do in a better way:
-- check compatability of libraries
-- look for available architectures before evaluating datasets
+- check compatability of libraries (really bad time trying to use Python3 with ROS),
+- look for available architectures before evaluating datasets (this could save time
+for dataset preparation).
