@@ -1,11 +1,8 @@
-""" Evaluation of Kitti dataset
+""" Evaluation of KAIST dataset
 
 This script analyses labels, selects proper bounding boxes,
-and saves them in special format using json.
+and saves calculates statistic.
 
-Python dictionary / json format:
-{"file1_path": [[bb_1_tl_x bb_1_tl_y bb_1_br_x bb_1_br_y] ... [bb_i_tl_x bb_i_tl_y bb_i_br_x bb_i_br_y]],
- "file2_path": ... }
 """
 import glob
 import json
