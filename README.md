@@ -156,19 +156,20 @@ Inference via Darkflow is described in `detection/README.md`. However to use
 detection in ROS we had to adapt some things for Python2, details are also
 provided in `detection/README.md`. We ended with our own Python2 package
 "objdet" which uses TensorFlow and some postprocessing functions adapted
- from Darkflow.
+ from Darkflow. The script `detection/pure_tf_cam.py` provides example of
+ using this package.
 
 In order to run detection in ROS environment we create a ROS 
 Detection node which is able to read images from any appropriate topic.
-It runs detection and publishes results in ROS to make them available 
-for other nodes.
+It runs detection and publishes results in ROS via custom message 
+format to make them available for other nodes.
 
 ![scheme](uml-scheme.png)
 
 To use OpenCV for image related operations  we have to convert them to 
 OpenCV format using CvBridge which is a ROS library with required functions.
 
-A detailed report of the ROS integration phase is available in `pedect-ws/README.md`
+Details of the ROS integration phase is available in `pedect-ws/README.md`
 
 #### Video demo
 
