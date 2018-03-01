@@ -21,8 +21,9 @@ color_codes = [
     (127, 255, 0)  # spring green
 ]
 
-net_files_path = '/home/rr/Desktop/built_graph/'
+net_files_path = 'built_graph/'
 
+# Network file and metaparams file required to properly postprocess network output.
 pb_file = net_files_path + 'tiny-yolo-voc.pb'
 meta_file = net_files_path + 'tiny-yolo-voc.meta'
 
@@ -30,6 +31,7 @@ threshold = 0.5
 
 if __name__ == "__main__":
 
+    # Init the detector from files
     detector = Detector(pb_file, meta_file)
 
     cap = cv2.VideoCapture(0)
@@ -37,6 +39,7 @@ if __name__ == "__main__":
 
     while rval:
         img = frame
+        # Format of each bounding box in the list returned by return_predict() function.
         # {'bottomright': {'x': 264, 'y': 213}, 'confidence': 0.3534133, 'label': 'car', 'topleft': {'x': 193, 'y': 174}}
         bbs = detector.return_predict(img, threshold)
         res_dict = dict()
@@ -46,6 +49,7 @@ if __name__ == "__main__":
             res_dict[str(i)] = box
             i += 1
 
+        # Example of dict->string->dict conversion
         result = json.dumps(res_dict)  # Creating a string from dictionary (so it's possible to use in ROS)
         bboxes = json.loads(result)  # Parsing string back to dictionary
 
