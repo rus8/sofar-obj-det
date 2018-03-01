@@ -13,7 +13,7 @@ import random
 import json
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
-from obj_detector.msg import DetectedBoxes
+from detection_consumer.msg import DetectedBoxes
 
 
 # BGR!

@@ -8,7 +8,7 @@ publishing detection results, and provides example node for detection.
 
 Install main dependencies:
 ```
-$ pip install cython numpy tensorflow==1.0
+$ pip install cython pyaml numpy tensorflow==1.0
 ```
 
 Install "objdet" package provided in this project:
