@@ -73,6 +73,13 @@ To provide examples we wrote
 scripts: `detection/cam_inferance.py` and `detection/img_inference.py`.  
 To run them one should download from Darknet website [weights](https://pjreddie.com/media/files/tiny-yolo-voc.weights`) 
 of TinyYOLO network trained on PASCAL VOC dataset.
+
+
+#### Darkflow environment
+
+To perform training and inference via Darkflow proper packages 
+have to be installed. Instructions are available in root folder of
+this repository in `dev-env.md` file.
 ___
 
 ## Inference via "objdet" package (almost pure TensorFlow)
