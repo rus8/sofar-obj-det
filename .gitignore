@@ -1,3 +1,11 @@
 #pycharm
 .idea/
 
+detection/build/*
+detection/objdet.egg-info/*
+detection/objdet/cython_utils/*.so
+
+pedect-ws/build/*
+pedect-ws/devel/*
+pedect-ws/logs/*
+pedect-ws/.catkin_tools/*
