@@ -10,8 +10,9 @@ project(obj_detector)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
-  message_generation
   std_msgs
+  message_generation
+  detect_msg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,8 +50,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate messages in the 'msg' folder
 add_message_files(
-FILES
-DetectedBoxes.msg
+  FILES
+  DetectedBoxes.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -70,7 +71,6 @@ DetectedBoxes.msg
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
    DEPENDENCIES
-   sensor_msgs
    std_msgs
 )
 
@@ -106,7 +106,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES obj_detector
-CATKIN_DEPENDS message_runtime
+CATKIN_DEPENDS rospy sensor_msgs std_msgs message_runtime
 #  DEPENDS system_lib
 )
 

@@ -12,9 +12,8 @@ import cv2
 import json
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
-from obj_detector.msg import DetectedBoxes
 from objdet.pure_tf_detector import Detector
-
+from detect_msg.msg import DetectedBoxes
 
 class ObjDetector:
     def __init__(self, camera_topic, detection_topic, pb_path, meta_path, threshold):
@@ -24,7 +23,7 @@ class ObjDetector:
         :param camera_topic: Name of topic to subscribe.
         """
         self.bridge = CvBridge()
-        self.image_sub = rospy.Subscriber(camera_topic, Image, self.callback)
+        self.image_sub = rospy.Subscriber(camera_topic, Image, self.img_callback)
         self.bboxes_pub = rospy.Publisher(detection_topic, DetectedBoxes, queue_size=5)
 
         self.bridge = CvBridge()
@@ -45,10 +44,17 @@ class ObjDetector:
 
         boxes_list = self.detector.return_predict(cv_image, self.threshold)
 
-        msg_to_pub = self.msg_constuctor(img_msg, boxes_list)
+        msg_to_pub = self.msg_constructor(img_msg, boxes_list)
         self.bboxes_pub.publish(msg_to_pub)
 
     def msg_constructor(self, img_msg, boxes_list):
+        """
+        Construct DetectedBoxes message.
+
+        :param img_msg: Image message used for detection (required to copy header)
+        :param boxes_list: List of predicted bounding boxes with labels.
+        :return: DetectedBoxes message.
+        """
         detect_msg = DetectedBoxes()
         detect_msg.header = img_msg.header # reuse header of image to have same timestamp
 

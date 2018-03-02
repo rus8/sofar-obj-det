@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """ Image topic subscriber
 
@@ -13,8 +13,7 @@ import random
 import json
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
-from detection_consumer.msg import DetectedBoxes
-
+from detect_msg.msg import DetectedBoxes
 
 # BGR!
 color_codes = [
@@ -38,21 +37,22 @@ class SubBoxDraw:
         :param camera_topic:
         :param detection_topic:
         """
+        rospy.init_node('Detection_consumer', anonymous=True)
         self.bridge = CvBridge()
-        self.image_sub = rospy.Subscriber(camera_topic, Image)
-        self.bboxes_sub = rospy.Subscriber(detection_topic, DetectedBoxes)
+        self.image_sub = message_filters.Subscriber(camera_topic, Image)
+        self.bboxes_sub = message_filters.Subscriber(detection_topic, DetectedBoxes)
         self.ts = message_filters.TimeSynchronizer([self.image_sub, self.bboxes_sub], 5)
         self.ts.registerCallback(self.callback)
 
     def callback(self, img_msg, detect_msg):
-        """
+        """Double synced callback
 
-        :param img_msg:
-        :param detect_msg:
-        :return:
+        Process image and detection messages
+        :param img_msg: Image message.
+        :param detect_msg: DetectedBoxes message.
         """
         try:
-            cv_image = self.bridge.imgmsg_to_cv2(img_msg, "bgr8")
+            img = self.bridge.imgmsg_to_cv2(img_msg, "bgr8")
         except CvBridgeError as e:
             print(e)
             return
@@ -67,16 +67,16 @@ class SubBoxDraw:
             x2 = box['bottomright']['x']
             y2 = box['bottomright']['y']
             font = cv2.FONT_HERSHEY_PLAIN
-            img = cv2.rectangle(cv_image, (x1, y1), (x2, y2), color, thickness=2)
+            img = cv2.rectangle(img, (x1, y1), (x2, y2), color, thickness=2)
             img = cv2.putText(img, box['label'] + ' ' + str(box['confidence']) + ' %', (x1, y1), font, 1, color,
                               thickness=2)
 
         cv2.imshow("Camera stream", img)
         cv2.waitKey(10)
+        return
 
 
 if __name__ == '__main__':
-    rospy.init_node('Detection_consumer', anonymous=True)
     sync_sub = SubBoxDraw("/my_camera_frame", "/my_boxes")
     try:
         rospy.spin()
