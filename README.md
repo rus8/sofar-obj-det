@@ -173,7 +173,7 @@ Details of the ROS integration phase is available in `pedect-ws/README.md`
 
 #### Video demo
 
-A demo video of the working project is available [here](https://drive.google.com/file/d/1RjbMC3CXnHgsTnqRFcXj05x7dqfeF5ge/view?usp=sharing).
+A demo video of the working project is available [here](https://drive.google.com/open?id=1h9B2t8ot8k5_7ss0w3L6NR4GluLSsU-b).
 ___
 
 ### Conclusion
