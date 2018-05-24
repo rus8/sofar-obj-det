@@ -172,8 +172,7 @@ OpenCV format using CvBridge which is a ROS library with required functions.
 Details of the ROS integration phase is available in `pedect-ws/README.md`
 
 #### Video demo
-
-A demo video of the working project is available [here](https://drive.google.com/open?id=1h9B2t8ot8k5_7ss0w3L6NR4GluLSsU-b).
+[![Alt text](https://img.youtube.com/vi/w-_G6Ez6Ovk/0.jpg)](https://www.youtube.com/watch?v=w-_G6Ez6Ovk).
 ___
 
 ### Conclusion
